@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/local/bin node
 
 /**
  * Module dependencies.
@@ -17,6 +17,7 @@ try {
   const noOfBytes = parsedArg.c;
   for (file of files) {
     fileUtils.validateFile(file);
+    console.log("==>" + file + "<==");
     if (
       commonUtils.isNullOrUndefined(noOfLines) &&
       commonUtils.isNullOrUndefined(noOfBytes)

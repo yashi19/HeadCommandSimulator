@@ -4,25 +4,27 @@ var appConstants = require("./appConstants");
 const readline = require("readline");
 
 function readLinesFromFile(file, noOfLines = appConstants.DEFAULT_LINES) {
-  const fileData = fs.readFileSync(file, appConstants.FILE_ENCODING);
-  const fileStream = fs.createReadStream(file);
-  console.log(fileStream);
+  var lines = fs.readFileSync(file, appConstants.FILE_ENCODING).split("\n");
+  let i = 0;
+  while (i < noOfLines) {
+    console.log(lines[i]);
+    i++;
+  }
 }
 
 function readBytesFromFile(file, noOfBytes) {
-  var data = "";
-  const stream = fs.createReadStream(file, {
-    start: 0,
-    end: noOfBytes
-  });
+  const buffer = Buffer.alloc(noOfBytes, 0);
+  let fd;
 
-  stream
-    .on("data", function(chunk) {
-      data += chunk;
-    })
-    .on("end", function() {
-      console.log(data);
-    });
+  try {
+    fd = fs.openSync(file, "r");
+    fs.readSync(fd, buffer, 0, noOfBytes, 0);
+  } finally {
+    if (fd) {
+      fs.closeSync(fd);
+    }
+  }
+  console.log(buffer.toString().trim());
 }
 
 function validateFile(file) {
