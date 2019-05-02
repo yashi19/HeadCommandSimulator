@@ -21,3 +21,12 @@
 | -------------- | -------------------------------------- |
 | fs             | CSS Framework                          |
 | minimist       | Helper for working with immutable data |
+
+### Output
+
+| **Dependency** | **Use**            |
+| -------------- | ------------------ |
+| asciinema      | Terminal Recording |
+
+1. Install asciinema from [asciima.org](https://asciinema.org/)
+2. Use command asciinema play terminalRec.cast
