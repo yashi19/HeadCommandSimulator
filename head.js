@@ -1,4 +1,4 @@
-#!/usr/local/bin node
+#!/usr/bin/env node
 
 /**
  * Module dependencies.
@@ -18,6 +18,7 @@ try {
   for (file of files) {
     fileUtils.validateFile(file);
     console.log("==>" + file + "<==");
+
     if (
       commonUtils.isNullOrUndefined(noOfLines) &&
       commonUtils.isNullOrUndefined(noOfBytes)
