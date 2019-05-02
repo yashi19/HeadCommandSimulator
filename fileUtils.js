@@ -1,32 +1,46 @@
 const fs = require("fs");
-const FILE_ENCODING = 'utf8';
+const os = require("os");
+var appConstants = require("./appConstants");
+const readline = require("readline");
 
-export function readFile(file,noOfLines){
-    const fileData = fs.readFileSync(file,FILE_ENCODING);
-    console.log(fileData);
+function readLinesFromFile(file, noOfLines = appConstants.DEFAULT_LINES) {
+  const fileData = fs.readFileSync(file, appConstants.FILE_ENCODING);
+  const fileStream = fs.createReadStream(file);
+  console.log(fileStream);
 }
 
-export function readFile(file,noOfBytes){
-    const fileData = fs.readFileSync(file,FILE_ENCODING);
-    console.log(fileData);
-}
+function readBytesFromFile(file, noOfBytes) {
+  var data = "";
+  const stream = fs.createReadStream(file, {
+    start: 0,
+    end: noOfBytes
+  });
 
-export function validateFile(file) {
-    fs.access(file, fs.constants.F_OK | fs.constants.R_OK, err => {
-      if (err) {
-        console.error(
-          `${file} ${
-            err.code === "ENOENT"
-              ? "No such file exist"
-              : "There is no read permission on file"
-          }`
-        );
-      }
+  stream
+    .on("data", function(chunk) {
+      data += chunk;
+    })
+    .on("end", function() {
+      console.log(data);
     });
-  }
+}
 
-  module.exports = {
-    validateFile,
-    readFile
-  };
-  
+function validateFile(file) {
+  fs.access(file, fs.constants.F_OK | fs.constants.R_OK, err => {
+    if (err) {
+      console.error(
+        `${file} ${
+          err.code === "ENOENT"
+            ? "No such file exist"
+            : "There is no read permission on file"
+        }`
+      );
+    }
+  });
+}
+
+module.exports = {
+  validateFile,
+  readLinesFromFile,
+  readBytesFromFile
+};
