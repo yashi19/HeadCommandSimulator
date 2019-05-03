@@ -5,11 +5,15 @@ const readline = require("readline");
 
 function readLinesFromFile(file, noOfLines = appConstants.DEFAULT_LINES) {
   var lines = fs.readFileSync(file, appConstants.FILE_ENCODING).split("\n");
-  let i = 0;
+  let i = 0,
+    data = "";
   while (i < noOfLines) {
+    data += lines[i];
+    data += "\n";
     console.log(lines[i]);
     i++;
   }
+  return data;
 }
 
 function readBytesFromFile(file, noOfBytes) {
@@ -25,6 +29,7 @@ function readBytesFromFile(file, noOfBytes) {
     }
   }
   console.log(buffer.toString().trim());
+  return buffer;
 }
 
 function validateFile(file) {
@@ -41,8 +46,26 @@ function validateFile(file) {
   });
 }
 
+function deleteFile(file) {
+  try {
+    fs.unlinkSync(file);
+  } catch (e) {
+    // Do nothing if file already exist
+  }
+}
+function writeFile(data) {
+  fs.writeFileSync("test/output.txt", data);
+}
+
+function readFile(file) {
+  return fs.readFileSync(file, appConstants.FILE_ENCODING);
+}
+
 module.exports = {
   validateFile,
   readLinesFromFile,
-  readBytesFromFile
+  readBytesFromFile,
+  deleteFile,
+  writeFile,
+  readFile
 };
