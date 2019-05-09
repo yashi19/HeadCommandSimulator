@@ -1,7 +1,10 @@
 const fs = require("fs");
-const os = require("os");
+const parseArgs = require("minimist");
 var appConstants = require("./appConstants");
-const readline = require("readline");
+
+function parseArgument(argv) {
+  return parseArgs(process.argv.slice(2));
+}
 
 function readLinesFromFile(file, noOfLines = appConstants.DEFAULT_LINES) {
   var lines = fs.readFileSync(file, appConstants.FILE_ENCODING).split("\n");
@@ -67,5 +70,6 @@ module.exports = {
   readBytesFromFile,
   deleteFile,
   writeFile,
-  readFile
+  readFile,
+  parseArgument
 };

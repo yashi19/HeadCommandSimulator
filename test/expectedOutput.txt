@@ -1,6 +1,11 @@
 ==> files/file1.txt <==
 1
 2
+3
+4
+
 ==> files/file2.txt <==
 a
 b
+c
+d

@@ -1,8 +1,8 @@
 const { execSync, fork, execFileSync } = require("child_process");
 const fileutils = require("../fileUtils");
 
-execSync("head -c 3 files/file1.txt files/file2.txt > test/expectedOutput.txt");
-execFileSync("node", ["head.js", "-c 3", "files/file1.txt", "files/file2.txt"]);
+execSync("head -n 4 files/file1.txt files/file2.txt > test/expectedOutput.txt");
+execFileSync("node", ["head.js", "-n 4", "files/file1.txt", "files/file2.txt"]);
 
 function shouldTestHeadFunctionality() {
   console.log("Testing Start!!");
