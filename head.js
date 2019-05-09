@@ -13,10 +13,9 @@ function executeHeadCommand() {
   let i = 0;
   try {
     const files = parsedArg._;
-    const noOfLines = parseInt(parsedArg.n);
-    const noOfBytes = parseInt(parsedArg.c);
-    commonUtils.validateArguments(parsedArg);
-
+    const noOfLines = parsedArg.n;
+    const noOfBytes = parsedArg.c;
+    commonUtils.validateArguments(files, noOfBytes, noOfLines);
     let outputData = "";
     for (file of files) {
       fileUtils.validateFile(file);

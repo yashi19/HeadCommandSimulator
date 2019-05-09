@@ -1,10 +1,6 @@
 const appConstants = require("./appConstants");
 
-function validateArguments(argv) {
-  const noOfLines = argv.n;
-  const noOfBytes = argv.c;
-  const files = argv._;
-
+function validateArguments(files, noOfBytes, noOfLines) {
   if (noOfLines && isNaN(noOfLines)) {
     throw new Error(appConstants.ILLEGAL_LINE_COUNT);
   } else if (noOfBytes && isNaN(noOfBytes)) {
